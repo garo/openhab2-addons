@@ -17,7 +17,7 @@ NR>5{
 	factor=$6
 	min=$7
 	max=$8
-	default=$9
+	#default=$9
 	mode=$10
 
 	gsub("\"", "", title)
