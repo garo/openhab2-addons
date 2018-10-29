@@ -404,13 +404,38 @@ public class NibeHeatPumpHandler extends BaseThingHandler implements NibeHeatPum
         } else if ("Number".equalsIgnoreCase(acceptedItemType)) {
             switch (dataType) {
                 case U8:
+                    if (value > 255.0) {
+                        return UnDefType.UNDEF;
+                    }
+
+                    state = new DecimalType(value);
+                    break;
                 case U16:
+                    if (value >= 65535.0) {
+                        return UnDefType.UNDEF;
+                    }
+                    state = new DecimalType(value);
+                    break;
                 case U32:
                     state = new DecimalType(value);
                     break;
                 case S8:
+                    if (value < -127 || value > 127) {
+                        return UnDefType.UNDEF;
+                    }
+                    state = new DecimalType(value);
+                    break;
                 case S16:
+                    if (value < -32768 || value > 32768) {
+                        return UnDefType.UNDEF;
+                    }
+                    state = new DecimalType(value);
+                    break;
+
                 case S32:
+                    if (value <= 214748340) {
+                        return UnDefType.UNDEF;
+                    }
                     BigDecimal bd = new BigDecimal(value).setScale(2, RoundingMode.HALF_EVEN);
                     state = new DecimalType(bd);
                     break;
